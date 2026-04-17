@@ -1,0 +1,47 @@
+/* ==================================================
+   ESTILOS COMPACTOS PARA "ACERCA DE"
+   ================================================== */
+
+/* Contenedor principal: Bajamos la altura mínima para que no sobre tanto espacio */
+.top {
+    min-height: 50vh; 
+    display: flex; 
+    align-items: center; 
+    text-align: center;
+    padding-top: 80px; /* Espacio para que no choque con el navbar fijo */
+}
+
+/* Título: Lo bajamos a 1.6rem para que quepa bien en una sola línea en celular */
+.fw-bold {
+    color: #143963; 
+    font-size: 1.6rem; 
+    font-weight: 700;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+/* Párrafos: Tamaño estándar de lectura */
+.top p {
+    font-size: 1rem; 
+    color: #555; 
+    line-height: 1.4;
+    margin-bottom: 10px;
+    padding: 0 15px;
+}
+
+/* ==================================================
+   AJUSTE PARA COMPUTADORAS (PANTALLAS GRANDES)
+   ================================================== */
+@media (min-width: 992px) { 
+    .top {
+        min-height: 70vh;
+        padding-top: 0; /* En PC no necesita tanto ajuste superior */
+    }
+    .fw-bold {
+        font-size: 2.8rem; /* Aquí sí puede verse grande y elegante */
+    }
+    .top p {
+        font-size: 1.2rem;
+        padding: 0;
+    }
+}

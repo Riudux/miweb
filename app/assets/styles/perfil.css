@@ -1,0 +1,137 @@
+/* Ajuste del contenedor principal por el navbar fijo */
+.perfil-container {
+    padding-top: 120px;
+    padding-bottom: 60px;
+    flex: 1;
+    /* Para que el footer baje si no hay mucho contenido */
+}
+
+/* --- ESTILO DE LA TARJETA PRINCIPAL --- */
+.perfil-card {
+    background-color: white;
+    border-radius: 15px;
+    /* Identidad visual de la página */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    /* Para que el header no se salga de las esquinas redondas */
+    margin-bottom: 30px;
+}
+
+/* --- ENCABEZADO DE LA TARJETA (Fondo de color y foto) --- */
+.perfil-header {
+    background: linear-gradient(135deg, #143963, #2a629e);
+    /* Azul institucional */
+    color: white;
+    text-align: center;
+    padding: 40px 20px 20px;
+    position: relative;
+}
+
+.perfil-header h2 {
+    margin-top: 15px;
+    margin-bottom: 5px;
+    font-weight: 700;
+}
+
+.user-role {
+    font-size: 1.1rem;
+    color: #c7e9f5;
+    /* Celeste claro */
+    margin-bottom: 0;
+}
+
+/* --- AVATAR DEL USUARIO --- */
+.perfil-avatar-wrapper {
+    width: 120px;
+    height: 120px;
+    background-color: white;
+    border-radius: 50%;
+    /* Círculo perfecto */
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    border: 4px solid #e6fff8;
+    /* Borde verdecito */
+}
+
+.avatar-icon {
+    font-size: 60px;
+    color: #143963;
+}
+
+/* --- CUERPO DE LA TARJETA (Datos) --- */
+.perfil-body {
+    padding: 30px 40px;
+}
+
+.section-title {
+    color: #143963;
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #e6fff8;
+    padding-bottom: 10px;
+}
+
+/* Cajas de información (Grid BS3 adaptado) */
+.info-box {
+    margin-bottom: 20px;
+}
+
+.info-box label {
+    color: #888;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 5px;
+}
+
+.info-box p {
+    color: #333;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.perfil-divider {
+    border-top: 1px dashed #ccc;
+    margin: 10px 0 30px;
+}
+
+/* --- BOTONES DEL PERFIL --- */
+.action-box {
+    margin-top: 20px;
+}
+
+.btn-editar {
+    background-color: #143963;
+    border: none;
+    border-radius: 25px;
+    padding: 10px 30px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.btn-editar:hover {
+    background-color: #0d2745;
+    box-shadow: 0 4px 10px rgba(20, 57, 99, 0.3);
+}
+
+/* --- BOTÓN DE LOGOUT EN EL NAVBAR --- */
+.btn-logout {
+    background-color: #ff4d4d !important;
+    color: white !important;
+    border-radius: 5px;
+}
+
+.btn-logout:hover {
+    background-color: #cc0000 !important;
+}
+
+/* Indicador de página activa en el navbar */
+.active-nav {
+    border-bottom: 2px solid #c7e9f5;
+}

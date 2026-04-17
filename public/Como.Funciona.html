@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<!-- =========================================================================
+    ARCHIVO: Como.Funciona.html (Landing Adicional Técnica)
+    PROPÓSITO: Contiene tarjetas explicativas (Cards) separadas indicando beneficios y
+    pasos de como usar la aplicación con Iconos visuales. 
+========================================================================= -->
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Como funciona?</title>
+    
+    <link rel="stylesheet" href="../app/assets/styles/body.css">
+    <link rel="stylesheet" href="../app/assets/styles/navbar.css">
+    <!-- Adición requerida del "como_funciona.css" hecho a medida para moldear las tarjetas en gris -->
+    <link rel="stylesheet" href="../app/assets/styles/como_funciona.css">
+    <link rel="stylesheet" href="../app/assets/styles/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="navbar">
+        <a href="../index.html"><img class="logo" src="../app/assets/imagenes/logo_nav.png" alt="Logo nav"
+                height="50px"></a>
+        <input type="checkbox" id="menu-toggle">
+
+        <label for="menu-toggle" class="hamburguesa">
+            <span></span>
+            <span></span>
+            <span></span>
+        </label>
+
+        <div class="botones">
+            <a href="../index.html" class="botones_nav">Inicio</a>
+            <a href="acercadee.html" class="botones_nav">Acerca de</a>
+            <a href="contactos.html" class="botones_nav">Contacto</a>
+            <a href="Como.Funciona.html" class="botones_nav">Como funciona</a>
+            <a href="../app/views/login.html" class="botones_nav">Ingresar</a>
+            <a href="../app/views/register.html" class="boton_register">Registrarse</a>
+        </div>
+    </nav>
+
+    <!-- Zona de Título Superior centrado -->
+    <section class="container top-section text-center">
+        <div class="row">
+            <div class="col-xs-12">
+                <h1 class="top-title">¿CÓMO FUNCIONA VITAL CONNECTION?</h1>
+                <p class="top-subtitle">El sistema recopila datos de tu cuerpo para que tu salud esté siempre conectada
+                    y bajo control.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Envoltura de Cartas principales (wrapper) -->
+    <div class="container cartel-wrapper text-center">
+
+        <!-- ============================================== -->
+        <!-- TARJETAS DE PASOS MAYORES (USANDO BOOTSTRAP GLYPHICONS) -->
+        <!-- ============================================== -->
+        <div class="row steps-row">
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="como-card">
+                    <!-- Insignia vectorial (Barra de estaedisticas) traída de Bootstrap 3 -->
+                    <span class="glyphicon glyphicon-stats"></span>
+                    <h3>Paso 1: Monitoreo</h3>
+                    <p>El sistema recopila datos como ritmo cardíaco, presión arterial y actividad física a través de
+                        tus dispositivos.</p>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="como-card">
+                    <!-- Insignia vectorial del Relámpago (Flash)  -->
+                    <span class="glyphicon glyphicon-flash"></span>
+                    <h3>Paso 2: Conexión</h3>
+                    <p>Recibe notificaciones al instante y comparte tus datos con tu médico de confianza si es
+                        necesario.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12">
+                <h2 class="benefits-title">NUESTROS BENEFICIOS</h2>
+            </div>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- MINI TARJETAS INFERIORES CON IMÁGENES EXTERNAS -->
+        <!-- ============================================== -->
+        <div class="row benefits-row">
+            <!-- Columna tamaño 3 de pantalla, entran 4 en 12 cuadrantes para Laptops. -->
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="como-card benefit-card">
+                    <img src="../app/assets/imagenes/ritmo.png" alt="24/7">
+                    <p>Monitoreo 24/7</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="como-card benefit-card">
+                    <img src="../app/assets/imagenes/sos.png" alt="Alertas">
+                    <p>Alertas Inteligentes</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="como-card benefit-card">
+                    <img src="../app/assets/imagenes/ia.png" alt="Historial">
+                    <p>Historial Digital</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="como-card benefit-card">
+                    <img src="../app/assets/imagenes/oxigeno.png" alt="Seguridad">
+                    <p>Seguridad de Datos</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Boton de acción final gigante "Call To Action" final, apuntando a Register. -->
+        <div class="row action-row">
+            <div class="col-xs-12">
+                <a href="../app/views/register.html" class="btn btn-success btn-lg btn-registro">
+                    Registrarme ahora
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <div class="foot_col_izq" izquierda>
+            <img id="foot_col_izq_img" src="../app/assets/imagenes/logo_nav.png" alt="Logo nav">
+            <p>
+                Tu salud conectada con <br>
+                monitoreo inteligente
+            </p>
+
+            <div class="foot_col_izq_iconos">
+                <a href="www.instagram.com"><img src="../app/assets/imagenes/ig-icon.png" alt="instagram"
+                        width="20px"></a>
+                <a href="www.facebook.com"><img src="../app/assets/imagenes/fb-icon.png" alt="facebook"
+                        width="20px"></a>
+                <a href="www.linkedin.com"><img src="../app/assets/imagenes/Linkedin.png" alt="LinkedIn"
+                        width="20px"></a>
+                <a href="www.x.com"><img src="../app/assets/imagenes/x.png" alt="x" width="20px"></a>
+            </div>
+        </div>
+        <div class="foot_col_centro_izq" centro>
+            <h1 id="foot_col_centro_izq_h1">Enlaces rápidos</h1>
+            <div>
+                <ul>
+                    <li><a href="../index.html" class="foot_col_centro_izq_enlaces">Inicio</a></li>
+                    <li><a href="acercadee.html" class="foot_col_centro_izq_enlaces">Acerca de</a></li>
+                    <li><a href="contactos.html" class="foot_col_centro_izq_enlaces">Contacto</a></li>
+                    <li><a href="Como.Funciona.html" class="foot_col_centro_izq_enlaces">Como funciona</a></li>
+                    <li><a href="../app/views/login.html" class="foot_col_centro_izq_enlaces">Iniciar Sesión</a></li>
+                    <li><a href="../app/views/register.html" class="foot_col_centro_izq_enlaces">Registrarse</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="foot_col_centro_der">
+            <h1 id="foot_col_centro_der_h1">Legal</h1>
+            <ul>
+                <li><a href="#" class="foot_col_centro_der_enlaces">Términos y condiciones</a></li>
+                <li><a href="#" class="foot_col_centro_der_enlaces">Política de privacidad</a></li>
+                <li><a href="#" class="foot_col_centro_der_enlaces">Aviso legal</a></li>
+            </ul>
+        </div>
+        <div class="foot_col_der" derecha>
+            <h1 id="foot_col_der_h1">Contacto</h1>
+            <ul>
+                <li>
+                    <p class="foot_col_der_contacto">Email: vitalconnection@vital.com</p>
+                </li>
+                <li>
+                    <p class="foot_col_der_contacto">telefono: +52 618 234 2619</p>
+                </li>
+                <li>
+                    <p class="foot_col_der_contacto">Direccion: UNIPOLI Durango, dgo</p>
+                </li>
+            </ul>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 3 Framework Scripts finales para compatibilidad del Menú responsivo móvil -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="../app/assets/styles/js/bootstrap.min.js"></script>
+</body>
+
+</html>

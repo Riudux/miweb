@@ -1,0 +1,113 @@
+/* ==================================================
+   CONTENEDOR PADRE (IGUAL AL LOGIN)
+   ================================================== */
+.register {
+    display: flex;
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center;     /* Centra verticalmente */
+    min-height: 100vh;      /* Ocupa el 100% de la altura */
+    width: 100%;
+    margin: 0;
+    padding: 20px;
+    padding-top: 100px; /* Espacio para que el navbar no lo tape */
+}
+
+/* ==================================================
+   TARJETA DE REGISTRO (LA CARD)
+   ================================================== */
+.register-card {
+    display: flex;
+    width: 100%;
+    max-width: 450px; /* Mismo ancho que tu login */
+    min-height: 500px;
+    background: linear-gradient(#c9f5f1 0%, #7fb9de 50%); /* Tu degradado */
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    margin: auto; 
+}
+
+/* ==================================================
+   COLUMNA FORMULARIO
+   ================================================== */
+.register-form {
+    width: 100%; 
+    padding: 40px 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.9); /* Un blanco ligero para que el fondo respire */
+}
+
+/* Título */
+.register-form h2 {
+    color: #143963;
+    text-align: center;
+    margin-bottom: 25px;
+    font-weight: bold;
+    font-size: 24px;
+}
+
+/* Grupos de Input */
+.input-group {
+    margin-bottom: 15px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px 20px;
+    border: 1px solid #ddd;
+    border-radius: 25px;
+    outline: none;
+    background-color: white;
+}
+
+.input-group input:focus {
+    border-color: #5b8cff;
+}
+
+/* Botón de Registro */
+.btn-register {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(90deg, #4fe3b1, #5b8cff);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: transform 0.2s, opacity 0.3s;
+}
+
+.btn-register:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
+}
+
+/* Enlace inferior */
+.login-link {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.login-link a {
+    color: #143963;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.login-link a:hover {
+    text-decoration: underline;
+}
+
+/* Checkbox de términos */
+.checkbox {
+    font-size: 13px;
+    margin-bottom: 15px;
+    color: #444;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}

@@ -1,0 +1,47 @@
+/* ==================================================
+   ESTILOS UNIFORMES PARA "CONTACTOS"
+   ================================================== */
+
+/* Contenedor principal con la misma altura que Acerca de */
+.top {
+    min-height: 50vh; 
+    display: flex; 
+    align-items: center; 
+    text-align: center;
+    padding-top: 80px; /* Evita que el navbar lo tape */
+}
+
+/* Título: El mismo tamaño que definimos para móvil */
+.fw-bold {
+    color: #143963; 
+    font-size: 1.6rem; 
+    font-weight: 700;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+/* Párrafos y datos de contacto */
+.top p {
+    font-size: 1rem; 
+    color: #555; 
+    line-height: 1.5;
+    margin-bottom: 10px;
+    padding: 0 15px;
+}
+
+/* ==================================================
+   AJUSTE PARA COMPUTADORAS (PANTALLAS GRANDES)
+   ================================================== */
+@media (min-width: 992px) { 
+    .top {
+        min-height: 70vh;
+        padding-top: 0; 
+    }
+    .fw-bold {
+        font-size: 2.8rem; /* Crece en computadora */
+    }
+    .top p {
+        font-size: 1.2rem;
+        padding: 0;
+    }
+}

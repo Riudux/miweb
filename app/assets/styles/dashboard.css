@@ -1,0 +1,176 @@
+/* ==================================================
+   DASHBOARD.CSS - Vital Connection
+   Estilos basados en la identidad visual de index.css
+   ================================================== */
+
+.boton_register {
+    background-color: #ff4d4d;
+    color: white;
+    border-radius: 5px;
+}
+
+/* ==================================================
+   CONTENEDOR PRINCIPAL DEL DASHBOARD
+   ================================================== */
+.dashboard-container {
+    /* Espacio superior para que el navbar fijo no tape el contenido */
+    padding-top: 120px;
+    padding-bottom: 50px;
+    /* Flex-grow para empujar el footer hacia abajo si body es flex col */
+    flex: 1;
+}
+
+/* ==================================================
+   ENCABEZADO (Bienvenida)
+   ================================================== */
+.dashboard-header {
+    margin-bottom: 50px;
+    color: #143963;
+    /* Azul oscuro institucional de index.css */
+}
+
+.dashboard-header h1 {
+    font-weight: 700;
+}
+
+.dashboard-header p {
+    font-size: 1.2rem;
+    color: #555;
+}
+
+/* ==================================================
+   TARJETAS DE SIGNOS VITALES (Estilo base de index.css)
+   ================================================== */
+.dash-card {
+    background-color: white;
+    border-radius: 15px;
+    /* Bordes redondeados como en index */
+    padding: 30px 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* Animación suave para el hover */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
+    margin-bottom: 30px;
+    min-height: 280px;
+    /* Altura uniforme para alineación */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Efecto hover igual que en las tarjetas del index */
+.dash-card:hover {
+    transform: translateY(-10px);
+    /* Se eleva */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    /* Sombra más fuerte */
+}
+
+.dash-card h3 {
+    color: #143963;
+    font-weight: 600;
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+}
+
+.dash-card p {
+    color: #666;
+    flex-grow: 1;
+    /* Empuja el botón hacia abajo si hay poco texto */
+    font-size: 1.1rem;
+}
+
+/* ==================================================
+   CONTENEDOR DE ÍCONOS (Estilo circular de index)
+   ================================================== */
+.dash-icon-wrapper {
+    border-radius: 45%;
+    /* Redondeado irregular como en index */
+    background-color: #e6fff8;
+    /* Color verde muy claro del fondo del index */
+    width: 80px;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.dash-icon {
+    font-size: 35px;
+    color: #143963;
+    /* Azul oscuro */
+}
+
+/* ==================================================
+   BOTONES PERSONALIZADOS
+   ================================================= */
+.btn-custom {
+    background-color: #143963;
+    /* Azul oscuro */
+    color: white;
+    border-radius: 25px;
+    padding: 10px 0;
+    width: 100%;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    border: none;
+    font-size: 1.1rem;
+}
+
+.btn-custom:hover {
+    background-color: #0d2745;
+    /* Azul más oscuro al hover */
+    color: white;
+    box-shadow: 0 4px 10px rgba(20, 57, 99, 0.3);
+}
+
+/* ==================================================
+   SECCIÓN Y TARJETA DE ADMINISTRADOR
+   ================================================== */
+.admin-section {
+    margin-top: 30px;
+}
+
+.admin-card {
+    background-color: #fffafaf2;
+    /* Fondo rojizo casi imperceptible */
+    border: 1px solid #ffcccc;
+    /* Borde sutil rojo */
+}
+
+.admin-icon {
+    background-color: #ffe6e6;
+    /* Fondo rojo muy claro para el ícono */
+}
+
+.admin-icon .dash-icon {
+    color: #d9534f;
+    /* Color rojo de Bootstrap ('danger') */
+}
+
+.admin-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    width: 100%;
+    flex-wrap: wrap;
+    /* Responsive para móviles */
+}
+
+.btn-admin {
+    background-color: #d9534f;
+    /* Rojo */
+    color: white;
+    border-radius: 25px;
+    padding: 10px 20px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    border: none;
+}
+
+.btn-admin:hover {
+    background-color: #c9302c;
+    color: white;
+}

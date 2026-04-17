@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<!-- En HTML5 la etiqueta html es la raíz del documento -->
+<html>
+
+<head>
+    <!-- Configuración para que admita ñ, tildes (UTF-8) -->
+    <meta charset="UTF-8">
+    <!-- Comando para hacer la página "Responsive", permitiendo que se vea como en un celular -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    
+    <!-- ============================================== -->
+    <!-- HOJAS DE ESTILO CASCADA (CSS) NATIVAS Y EXTERNAS -->
+    <!-- ============================================== -->
+    <!-- Importamos de manera ascendente los estilos desde nuestra carpeta 'assets/styles' -->
+    <link rel="stylesheet" href="../assets/styles/body.css">
+    <link rel="stylesheet" href="../assets/styles/navbar.css">
+    <link rel="stylesheet" href="../assets/styles/login.css">
+    <!-- Aquí llamamos de forma local a Bootstrap. A veces lo llamamos por web (CDN) como en otros archivos, 
+         pero aquí tenemos el archivo físicamente en 'assets/styles/css' -->
+    <link rel="stylesheet" href="../assets/styles/css/bootstrap.min.css">
+    <!-- Traemos desde los propios servidores web de Google la familia de fuentes (letra) 'Inter' -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+
+</head>
+
+<body>
+    <!-- <nav> es una etiqueta de "Semántica HTML5" orientada a crear Barras de Navegación principales -->
+    <nav class="navbar">
+        <!-- Logo principal clicleable que nos regresa a la "Home" (index.html) pública -->
+        <a href="../../index.html"><img class="logo" src="../assets/imagenes/logo_nav.png" alt="Logo nav"
+                height="50px"></a>
+        
+        <!-- TRUCO DE CSS: Este input "checkbox" invisible funciona junto con el label ".hamburguesa"
+         para crear un menú móvil sin utilizar JavaScript. Al darle click, CSS despliega los botones. -->
+        <input type="checkbox" id="menu-toggle">
+
+        <label for="menu-toggle" class="hamburguesa">
+            <span></span>
+            <span></span>
+            <span></span>
+        </label>
+
+        <!-- Contenedor general de enlaces (Links / Rutas) -->
+        <div class="botones">
+            <a href="../../index.html" class="botones_nav">Inicio</a>
+            <a href="../../public/acercadee.html" class="botones_nav">Acerca de</a>
+            <a href="../../public/contactos.html" class="botones_nav">Contacto</a>
+            <a href="../../public/Como.Funciona.html" class="botones_nav">Como funciona</a> <!-- Nota: Faltó cambiar de dispositivos.html -->
+            <a href="login.html" class="botones_nav">Ingresar</a>
+            <!-- Botón remarcado de Registro -->
+            <a href="register.html" class="boton_register">Registrarse</a>
+        </div>
+
+
+    </nav>
+
+    <!-- ============================================== -->
+    <!-- COMPONENTE: FORMULARIO LOGIN CENTRAL            -->
+    <!-- ============================================== -->
+    <div class="login">
+        <div class="login-card">
+            <div class="login-form">
+                <h2>Iniciar Sesión</h2>
+
+                <!-- Importante: El 'action' define hacia dónde se van los datos tecleados. 
+                     Viajarán con método de seguridad POST hacia "login.php" -->
+                <form action="../controllers/usuarios/login.php" method="POST">
+
+                    <div class="input-group">
+                        <!-- type="email" asegura que obligatoriamente deba llevar un @ el texto antes de intentar ingresar -->
+                        <input type="email" name="email" placeholder="Correo electrónico" required>
+                    </div>
+
+                    <div class="input-group">
+                        <input type="password" name="password" placeholder="Contraseña" required>
+                    </div>
+
+                    <!-- Botón disparador dentro del Formulario -->
+                    <button class="btn-login" type="submit">Iniciar Sesión</button>
+
+                </form>
+
+                <!-- Pie inferior del recuadro -->
+                <p class="login-link">
+                    ¿No tienes cuenta? <a href="register.html">Regístrate</a>
+                </p> <br>
+                <a class="forgot-password" href="#">¿Olvidaste tu contraseña?</a>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ============================================== -->
+    <!-- PIE DE PÁGINA COMÚN (FOOTER)                     -->
+    <!-- ============================================== -->
+    <footer>
+        <div class="foot_col_izq" izquierda>
+            <img id="foot_col_izq_img" src="../assets/imagenes/logo_nav.png" alt="Logo nav">
+            <p>
+                Tu salud conectada con <br>
+                monitoreo inteligente
+            </p>
+
+            <div class="foot_col_izq_iconos">
+                <!-- Íconos sacados desde nuestra propia carpeta interna en imágenes -->
+                <a href="www.instagram.com"><img src="../assets/imagenes/ig-icon.png" alt="instagram" width="20px"></a>
+                <a href="www.facebook.com"><img src="../assets/imagenes/fb-icon.png" alt="facebook" width="20px"></a>
+                <a href="www.linkedin.com"><img src="../assets/imagenes/Linkedin.png" alt="LinkedIn" width="20px"></a>
+                <a href="www.x.com"><img src="../assets/imagenes/x.png" alt="x" width="20px"></a>
+
+            </div>
+        </div>
+        
+        <div class="foot_col_centro_izq" centro>
+            <h1 id="foot_col_centro_izq_h1">Enlaces rápidos</h1>
+            <div>
+                <ul>
+                    <li><a href="../../index.html" class="foot_col_centro_izq_enlaces">Inicio</a></li>
+                    <li><a href="../../public/acercadee.html" class="foot_col_centro_izq_enlaces">Acerca de</a></li>
+                    <li><a href="../../public/contactos.html" class="foot_col_centro_izq_enlaces">Contacto</a></li>
+                    <li><a href="../../public/Como.Funciona.html" class="foot_col_centro_izq_enlaces">Como funciona</a>
+                    </li>
+                    <li><a href="login.html" class="foot_col_centro_izq_enlaces">Iniciar Sesión</a></li>
+                    <li><a href="register.html" class="foot_col_centro_izq_enlaces">Registrarse</a></li>
+                </ul>
+            </div>
+
+        </div>
+        
+        <div class="foot_col_centro_der">
+            <h1 id="foot_col_centro_der_h1">Legal</h1>
+            <ul>
+                <li><a href="#" class="foot_col_centro_der_enlaces">Términos y condiciones</a></li>
+                <li><a href="#" class="foot_col_centro_der_enlaces">Política de privacidad</a></li>
+                <li><a href="#" class="foot_col_centro_der_enlaces">Aviso legal</a></li>
+            </ul>
+        </div>
+        <div class="foot_col_der" derecha>
+            <h1 id="foot_col_der_h1">Contacto</h1>
+            <ul>
+                <li>
+                    <p class="foot_col_der_contacto">Email: vitalconnection@vital.com</p>
+                </li>
+                <li>
+                    <p class="foot_col_der_contacto">telefono: +52 618 234 2619</p>
+                </li>
+                <li>
+                    <p class="foot_col_der_contacto">Direccion: UNIPOLI Durango, dgo</p>
+                </li>
+            </ul>
+        </div>
+
+    </footer>
+
+</body>
+
+</html>

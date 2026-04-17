@@ -1,0 +1,137 @@
+/* ==================================================
+   ESTILOS PARA COMO FUNCIONA 
+   ================================================== */
+
+/* --- SECCIÓN TOP --- */
+.top-section {
+    margin-top: 120px;
+    /* Separación del navbar fijo */
+    margin-bottom: 50px;
+}
+
+.top-title {
+    color: #143963;
+    /* Azul institucional */
+    font-weight: 700;
+    margin: 0;
+    font-size: 2.5rem;
+}
+
+.top-subtitle {
+    font-size: 1.2rem;
+    color: #555;
+    margin-top: 15px;
+}
+
+/* --- CONTENEDOR PRINCIPAL --- */
+.cartel-wrapper {
+    padding-bottom: 80px;
+}
+
+.steps-row {
+    margin-bottom: 60px;
+}
+
+/* --- TARJETAS GENERALES --- */
+/* Esta clase tiene su propio estilo basado visualmente en el index, 
+   pero sin depender del archivo index.css */
+.como-card {
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* Sombra base */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    /* Transición suave */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding-bottom: 30px;
+    height: 100%;
+    /* Para que las tarjetas en la misma fila midan lo mismo */
+    margin-bottom: 30px;
+    /* Separación en dispositivos móviles */
+}
+
+/* Efecto hover interactivo */
+.como-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Íconos circulares dentro de las tarjetas */
+.como-card img {
+    border-radius: 45%;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    background-color: #fcf4e8;
+    /* Fondo sutil base (antiquewhite suave) */
+    width: 80px;
+    height: 80px;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    object-fit: cover;
+}
+
+.como-card h3 {
+    color: #143963;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.como-card p {
+    font-size: 16px;
+    color: #555;
+    padding: 0 25px;
+    margin: 0;
+}
+
+/* --- SECCIÓN DE BENEFICIOS --- */
+.benefits-title {
+    color: #143963;
+    font-weight: 700;
+    margin-bottom: 40px;
+}
+
+.benefits-row {
+    margin-bottom: 40px;
+}
+
+/* Tarjetas pequeñas de beneficios */
+.benefit-card img {
+    background-color: #e6fff8;
+    /* Fondo verdoso/celeste sutil */
+    width: 70px;
+    height: 70px;
+}
+
+.benefit-card p {
+    font-size: 18px;
+    color: #143963;
+    font-weight: 600;
+    margin-top: 10px;
+    padding-bottom: 10px;
+}
+
+/* --- BOTÓN DE REGISTRO --- */
+.action-row {
+    margin-top: 20px;
+}
+
+.btn-registro {
+    padding: 15px 40px;
+    font-weight: bold;
+    border-radius: 30px;
+    font-size: 1.2rem;
+    background-color: #5cb85c;
+    border-color: #4cae4c;
+    transition: all 0.3s ease;
+    color: white;
+}
+
+.btn-registro:hover {
+    background-color: #449d44;
+    border-color: #398439;
+    box-shadow: 0 4px 10px rgba(92, 184, 92, 0.4);
+    color: white;
+}
