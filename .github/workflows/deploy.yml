@@ -19,5 +19,5 @@ jobs:
           script: |
             cd /var/www/html
             git pull origin main
-            sudo chown -R apache:apache /var/www/html
+            sudo chown -R opc:opc /var/www/html
             sudo systemctl reload httpd
