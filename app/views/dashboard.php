@@ -6,23 +6,18 @@
 // Si no hay memoria, lo bota. Mostrando opciones personalizadas.
 // =========================================================================
 
-// Paso 1. Reiniciar o engancharnos al costal temporal de sesion '$_SESSION' que viaja en el servidor
 session_start();
 
-// Validamos rigurosamente si el pase 'email' y el 'username' se encuentran definidos adentro. 
 if (isset($_SESSION['email']) && isset($_SESSION['username'])) {
 
-    // Si existen, procedemos a "Desempacar" esas bolsas en Variables de uso fácil local.
     $username = $_SESSION['username'];
     $email = $_SESSION['email'];
     $elide = $_SESSION['id_usuario'];
     $lacontra = $_SESSION['password'];
-    $idrol = $_SESSION['id_rol']; // Importantísimo: Guarda "1" (Admin) o "2" (Regular).
+    $idrol = $_SESSION['id_rol'];
 
 } else {
-    // Si algún intruso quiso entrar tipeando en Google 'dashboard.php' sin iniciar sesión,  
-    // el código falla en el `if`, lo interceptamos, y lo mandamos volando a 'login.html' para obligarlo a validarse.
-    header("Location : login.html");
+    header("Location: login.html");
     exit();
 }
 

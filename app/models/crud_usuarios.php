@@ -1,24 +1,17 @@
 <?php
-    // =========================================================================
-    // ARCHIVO: crud_usuarios.php
-    // PROPÓSITO: Provee una interfaz gráfica de administración general (CRUD) 
-    // especializada en crear, leer, modificar o eliminar cuentas de USUARIOS del sistema.
-    // =========================================================================
-
-    // Iniciamos sesión. Aunque la parte inferior es gráfica, la barrera inicial valida que este script interactue manteniendo la sesión abierta.
     session_start();
-    // Incluir configuración de base de datos para futuras consultas maestras.
-    include("../config/conexion.php");
+    if (isset($_SESSION['email']) && isset($_SESSION['username'])) {
 
-    // =========================================================
-    // CONSULTA INICIAL BÁSICA DE PRECARGA
-    // Este bloque ejecuta un 'SELECT' simple, aunque la verdadera carga gráfica de visualización se delega posteriormente por AJAX.
-    // =========================================================
-    $sql = "SELECT * FROM usuarios";
-    // Almacenamos el éxito de la consulta, por si requiriéramos usarlo (no estrictamente necesario si usamos puro AJAX después).
-    $result = $conn->query($sql);
-    // Cerramos esta mini-conexión inicial temporal por seguridad.
-    $conn->close();
+    $username = $_SESSION['username'];
+    $email = $_SESSION['email'];
+    $elide = $_SESSION['id_usuario'];
+    $lacontra = $_SESSION['password'];
+    $idrol = $_SESSION['id_rol'];
+
+    } else {
+        header("Location: ../views/login.html");
+        exit();
+    }
 ?>
 
 <!DOCTYPE html>
@@ -29,6 +22,11 @@
         <!-- Establece el ancho correcto para celulares (Responsive Design) -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Crud Usuarios</title>
+
+        <link rel="stylesheet" href="../assets/styles/crud_biometricos.css">
+        <link rel="stylesheet" href="../assets/styles/navbar.css">
+        <link rel="stylesheet" href="../assets/styles/body.css">
+        
 
         <!-- ============================================== -->
         <!-- OBTENCIÓN DE HOJAS DE ESTILOS (BOOTSTRAP 3)    -->
@@ -42,80 +40,146 @@
     </head>
 
     <body>
-        <h1 class="text-center">Crud es el acronimo para create, read, update, delete</h1>
-        
-        <!-- Botón que activa la función JavaScript descrita al final de esta página para mostrar el cuadro "Añadir Usuario" -->
-        <button onclick="mostrarAgregarUsuario('modalAgregarUsuario')">Agregar usuario</button>
 
-        <!-- ============================================== -->
-        <!-- LA ESTRUCTURA TABULAR FRONTAL (ESQUELETO)      -->
-        <!-- ============================================== -->
-        <table id="usuariosTable" border="1">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Username</th>
-                    <th>Email</th>
-                    <th>Fecha_Registro</th>
-                    <th>ID Rol</th>
-                    <!-- Cabecera de Acciones (para contener botones Editar y Eliminar) -->
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <!-- El contenido dinámico rellenará esta etiqueta desde Javascript -->
-            <tbody>
+        <!-- BARRA NAVEGACIÓN PERFIL -->
+        <nav class="navbar">
+            <a href="../views/dashboard.php"><img class="logo" src="../assets/imagenes/logo_nav.png" alt="Vital Connection Logo"></a>
+            <input type="checkbox" id="menu-toggle">
 
-            </tbody>
-        </table>
+            <label for="menu-toggle" class="hamburguesa">
+                <span></span>
+                <span></span>
+                <span></span>
+            </label>
 
-        <!-- ========================================================= -->
-        <!-- RECINTOS MODALES (PANTALLAS EMERGENTES TIPO 'POP-UP')     -->
-        <!-- Estarán invisibles (display:none) hasta que JavaScript actúe -->
-        <!-- ========================================================= -->
+            <div class="botones">
+                <a href="../views/dashboard.php" class="botones_nav"><span class="glyphicon glyphicon-home"></span> Panel</a>
+                <a href="../views/perfil.php" class="botones_nav active-nav"><span class="glyphicon glyphicon-user"></span> Mi Perfil</a>
+                
+                <!-- Botón de desincorporación -->
+                <a href="../controllers/usuarios/logout.php" class="boton_register btn-logout"><span class="glyphicon glyphicon-log-out"></span> Cerrar Sesión</a>
+            </div>
+        </nav>
 
-        <!-- MODAL DE EDICIÓN -->
-        <div id="modalEditar" style="display:none" ;>
-            <h3>Editar Usuario</h3>
-            <form id="mostrarEditarUsuario">
-                ID : <span id="editID"></span><br>
-                Username : <input type="text" id="editUsername"><br>
-                Email : <input type="text" id="editEmail"><br>
-                Fecha_Registro : <input type="text" id="editFecha"><br>
-                Rol : <input type="text" id="editIdRol"><br>
-                <!-- Ojo: Tipo Botón, NO "Submit", ya que usaremos Ajax manualmente. -->
-                <button type="button" onclick="guardarEdicion()"> Guardar</button>
-            </form>
-        </div>
+        <section>
+            <h1 class="text-center">Crud Usuarios</h1>
+            
+            <!-- Botón que activa la función JavaScript descrita al final de esta página para mostrar el cuadro "Añadir Usuario" -->
+            <button id="btnAgregarBiometrico" onclick="mostrarAgregarUsuario('modalAgregarUsuario')">Agregar usuario</button>
 
-        <!-- MODAL DE ELIMINAR -->
-        <div id="modalEliminar" style="display:none" ;>
-            <h3>Confirmar Eliminacion</h3>
-            ID: <span id="id"></span><br>
-            <p>¿Estas seguro de que quieres eliminar este usuario?</p>
-            <form id="mostrarEliminarUsuario">
-                <button type="button" onclick="eliminarUsuario()">Eliminar</button>
-            </form>
-        </div>
+            <!-- ============================================== -->
+            <!-- LA ESTRUCTURA TABULAR FRONTAL (ESQUELETO)      -->
+            <!-- ============================================== -->
+            <table id="usuariosTable" class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Fecha_Registro</th>
+                        <th>ID Rol</th>
+                        <!-- Cabecera de Acciones (para contener botones Editar y Eliminar) -->
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <!-- El contenido dinámico rellenará esta etiqueta desde Javascript -->
+                <tbody>
 
-        <!-- MODAL DE CREACIÓN -->
-        <div id="modalAgregarUsuario" style="display:none" ;>
-            <h3>Agregar Usuario</h3>
-            <!-- Este Modal sí se ejecuta clásico con "POST" apuntando al registro directo y reseteándose -->
-            <form action="../controllers/usuarios/register_usuarios.php" id="nuevoUsuario" method="post">
-                <label for="username">Nombre de usuario:</label>
-                <input type="text" id="username" name="username" required> <br><br>
+                </tbody>
+            </table>
 
-                <label for="email">Correo:</label>
-                <input type="text" id="email" name="email" required> <br><br>
+            <!-- ========================================================= -->
+            <!-- RECINTOS MODALES (PANTALLAS EMERGENTES TIPO 'POP-UP')     -->
+            <!-- Estarán invisibles (display:none) hasta que JavaScript actúe -->
+            <!-- ========================================================= -->
 
-                <label for="password">Contraseña:</label>
-                <!-- La contraseña se enmascara con "type=password" -->
-                <input type="password" id="password" name="password" required> <br><br>
+            <!-- MODAL DE EDICIÓN -->
+            <div id="modalEditar" style="display:none" ;>
+                <h3>Editar Usuario</h3>
+                <form id="mostrarEditarUsuario">
+                    ID : <span id="editID"></span><br>
+                    Username : <input type="text" id="editUsername"><br>
+                    Email : <input type="text" id="editEmail"><br>
+                    Fecha_Registro : <input type="text" id="editFecha"><br>
+                    Rol : <input type="text" id="editIdRol"><br>
+                    <!-- Ojo: Tipo Botón, NO "Submit", ya que usaremos Ajax manualmente. -->
+                    <button type="button" onclick="guardarEdicion()"> Guardar</button>
+                </form>
+            </div>
 
-                <!-- Botón de Envío forzado -->
-                <button type="submit" name="accion" value="agregar">Añadir</button>
-            </form>
-        </div>
+            <!-- MODAL DE ELIMINAR -->
+            <div id="modalEliminar" style="display:none" ;>
+                <h3>Confirmar Eliminacion</h3>
+                ID: <span id="id"></span><br>
+                <p>¿Estas seguro de que quieres eliminar este usuario?</p>
+                <form id="mostrarEliminarUsuario">
+                    <button type="button" onclick="eliminarUsuario()">Eliminar</button>
+                </form>
+            </div>
+
+            <!-- MODAL DE CREACIÓN -->
+            <div id="modalAgregarUsuario" style="display:none" ;>
+                <h3>Agregar Usuario</h3>
+                <!-- Este Modal sí se ejecuta clásico con "POST" apuntando al registro directo y reseteándose -->
+                <form action="../controllers/usuarios/register_usuarios.php" id="nuevoUsuario" method="post">
+                    <label for="username">Nombre de usuario:</label>
+                    <input type="text" id="username" name="username" required> <br><br>
+
+                    <label for="email">Correo:</label>
+                    <input type="text" id="email" name="email" required> <br><br>
+
+                    <label for="password">Contraseña:</label>
+                    <!-- La contraseña se enmascara con "type=password" -->
+                    <input type="password" id="password" name="password" required> <br><br>
+
+                    <!-- Botón de Envío forzado -->
+                    <button type="submit" name="accion" value="agregar">Añadir</button>
+                </form>
+            </div>
+
+        </section>
+
+        <footer>
+            <div class="foot_col_izq" izquierda>
+                <img id="foot_col_izq_img" src="../assets/imagenes/logo_nav.png" alt="Logo nav">
+                <p>
+                    Tu salud conectada con <br>
+                    monitoreo inteligente
+                </p>
+
+                <div class="foot_col_izq_iconos">
+                    <a href="www.instagram.com"><img src="../assets/imagenes/ig-icon.png" alt="instagram" width="20px"></a>
+                    <a href="www.facebook.com"><img src="../assets/imagenes/fb-icon.png" alt="facebook" width="20px"></a>
+                    <a href="www.linkedin.com"><img src="../assets/imagenes/Linkedin.png" alt="LinkedIn" width="20px"></a>
+                    <a href="www.x.com"><img src="../assets/imagenes/x.png" alt="x" width="20px"></a>
+
+                </div>
+            </div>
+
+            <div class="foot_col_centro_der">
+                <h1 id="foot_col_centro_der_h1">Legal</h1>
+                <ul>
+                    <li><a href="#" class="foot_col_centro_der_enlaces">Términos y condiciones</a></li>
+                    <li><a href="#" class="foot_col_centro_der_enlaces">Política de privacidad</a></li>
+                    <li><a href="#" class="foot_col_centro_der_enlaces">Aviso legal</a></li>
+                </ul>
+            </div>
+            <div class="foot_col_der" derecha>
+                <h1 id="foot_col_der_h1">Contacto</h1>
+                <ul>
+                    <li>
+                        <p class="foot_col_der_contacto">Email: vitalconnection@vital.com</p>
+                    </li>
+                    <li>
+                        <p class="foot_col_der_contacto">telefono: +52 618 234 2619</p>
+                    </li>
+                    <li>
+                        <p class="foot_col_der_contacto">Direccion: UNIPOLI Durango, dgo</p>
+                    </li>
+                </ul>
+            </div>
+
+        </footer>
 
         <!-- ============================================== -->
         <!-- LÓGICA DE INTERACCIÓN DEL CLIENTE (SCRIPTS)    -->

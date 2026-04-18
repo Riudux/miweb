@@ -1,15 +1,17 @@
 <?php
-    // =========================================================================
-    // ARCHIVO: crud_dispositivos.php
-    // PROPÓSITO: Provee una Interfaz (vista de administración) para visualizar,
-    // añadir, editar y eliminar dispostivios asignados a algún paciente. 
-    // Es el equivalente idéntico al CRUD Biométrico, pero con tablas de Dispositivos.
-    // =========================================================================
-
-    // Se inicia sesión para asegurar que ciertas funcionalidades dependan del estado del usuario (como que esté loggeado en la PC o revisar su idrol).
     session_start();
-    // Requerimos que todo este código pueda hablar por MySQL cargando el script 'conexion.php'.
-    include("../config/conexion.php");
+    if (isset($_SESSION['email']) && isset($_SESSION['username'])) {
+
+    $username = $_SESSION['username'];
+    $email = $_SESSION['email'];
+    $elide = $_SESSION['id_usuario'];
+    $lacontra = $_SESSION['password'];
+    $idrol = $_SESSION['id_rol'];
+
+    } else {
+        header("Location: ../views/login.html");
+        exit();
+    }
 ?>
 
 <!DOCTYPE html>
@@ -19,6 +21,11 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
         <meta name="viewport" content="width=device-width, initial-scale=1"> 
         <title>Crud Dispositivos</title>
+
+        <link rel="stylesheet" href="../assets/styles/crud_biometricos.css">
+        <link rel="stylesheet" href="../assets/styles/navbar.css">
+        <link rel="stylesheet" href="../assets/styles/body.css">
+        
 
         <!-- ========================================== -->
         <!-- USO DE FRAMEWORKS PARA ESTILIZACIÓN AUTOMATIZADA -->
@@ -34,62 +41,84 @@
 
     </head>
     <body>
-        <h1 class="text-center">Crud es el acronimo para create, read, update, delete</h1>
-        
-        <!-- Botón para añadir un DISPOSITIVO a la base de datos.
-             Llama a la lógica Javascript detallada después del 'body' en este documento enviando de dato "modalAgregarDispositivo"  -->
-        <button onclick="mostrarAgregarDispositivo('modalAgregarDispositivo')">Agregar dispositivo</button>
-        
-        <!-- LA ESTRUCTURA VACÍA AL USUARIO. 
-             La tabla inicialmente en lenguaje estático ("<table id='..'></table>") carece de datos reales de la DDBB -->
-        <table id="dispositivosTable" border="1">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Modelo</th>
-                    <th>Numero de serie</th>
-                    <th>ID Usuario</th>
-                    <th>Fecha Registro</th>
-                    <th>Estado</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <!-- Justamente este TBODY será alimentado dinamicamente con código extraído al pedirle al controlador (cargar_dispositivos.php) desde JS -->
-            <tbody>
-                
-            </tbody>
-        </table>
 
-        <!-- ===================================================== -->
-        <!-- LAS PANTALLAS MODALES OCULTAS (DISPLAY:NONE) POR DEFECTO -->
-        <!-- ===================================================== -->
-        
-        <!-- Modal que aparece para sobreescribir (editar) la información capturada -->
-        <div id="modalEditar" style="display:none";>
-            <h3>Editar Dispositivo</h3>
-            <form id="mostrarEditarDispositivo">
-                ID : <span id="editID"></span><br>
-                Nombre : <input type="text" id="editNombre"><br>
-                Modelo : <input type="text" id="editModelo"><br>
-                Numero de serie : <input type="text" id="editNumeroSerie"><br>
-                ID Usuario : <input type="text" id="editIdUsuario"><br>
-                Fecha Registro : <input type="text" id="editFechaRegistro"><br>
-                Estado : <input type="text" id="editEstado"><br>
-                
-                <button type="button" onclick="guardarEdicion()"> Guardar</button>
-            </form>
-        </div>
+        <!-- BARRA NAVEGACIÓN PERFIL -->
+        <nav class="navbar">
+            <a href="../views/dashboard.php"><img class="logo" src="../assets/imagenes/logo_nav.png" alt="Vital Connection Logo"></a>
+            <input type="checkbox" id="menu-toggle">
 
-        <!-- Modal que nos solicita verificar un posible borrado (ya que en CRUD no hay "CTRL + Z" o forma rápida de regresar lo eliminado) -->
-        <div id="modalEliminar" style="display:none";>
-            <h3>Confirmar Eliminacion</h3>
-                ID: <span id="id"></span><br>
-            <p>¿Estas seguro de que quieres eliminar este dispositivo?</p>
-            <form id="mostrarEliminarDispositivo">
-                <button type="button" onclick="eliminarDispositivo()">Eliminar</button>
-            </form>
-        </div>
+            <label for="menu-toggle" class="hamburguesa">
+                <span></span>
+                <span></span>
+                <span></span>
+            </label>
+
+            <div class="botones">
+                <a href="../views/dashboard.php" class="botones_nav"><span class="glyphicon glyphicon-home"></span> Panel</a>
+                <a href="../views/perfil.php" class="botones_nav active-nav"><span class="glyphicon glyphicon-user"></span> Mi Perfil</a>
+                
+                <!-- Botón de desincorporación -->
+                <a href="../controllers/usuarios/logout.php" class="boton_register btn-logout"><span class="glyphicon glyphicon-log-out"></span> Cerrar Sesión</a>
+            </div>
+        </nav>
+
+        <section>
+            <h1 class="text-center">Crud Dispositivos</h1>
+            
+            <!-- Botón para añadir un DISPOSITIVO a la base de datos.
+                 Llama a la lógica Javascript detallada después del 'body' en este documento enviando de dato "modalAgregarDispositivo"  -->
+            <button id="btnAgregarBiometrico" onclick="mostrarAgregarDispositivo('modalAgregarDispositivo')">Agregar dispositivo</button>
+            
+            <!-- LA ESTRUCTURA VACÍA AL USUARIO. 
+                 La tabla inicialmente en lenguaje estático ("<table id='..'></table>") carece de datos reales de la DDBB -->
+            <table id="dispositivosTable" class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Modelo</th>
+                        <th>Numero de serie</th>
+                        <th>ID Usuario</th>
+                        <th>Fecha Registro</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <!-- Justamente este TBODY será alimentado dinamicamente con código extraído al pedirle al controlador (cargar_dispositivos.php) desde JS -->
+                <tbody>
+                    
+                </tbody>
+            </table>
+
+            <!-- ===================================================== -->
+            <!-- LAS PANTALLAS MODALES OCULTAS (DISPLAY:NONE) POR DEFECTO -->
+            <!-- ===================================================== -->
+            
+            <!-- Modal que aparece para sobreescribir (editar) la información capturada -->
+            <div id="modalEditar" style="display:none";>
+                <h3>Editar Dispositivo</h3>
+                <form id="mostrarEditarDispositivo">
+                    ID : <span id="editID"></span><br>
+                    Nombre : <input type="text" id="editNombre"><br>
+                    Modelo : <input type="text" id="editModelo"><br>
+                    Numero de serie : <input type="text" id="editNumeroSerie"><br>
+                    ID Usuario : <input type="text" id="editIdUsuario"><br>
+                    Fecha Registro : <input type="text" id="editFechaRegistro"><br>
+                    Estado : <input type="text" id="editEstado"><br>
+                    
+                    <button type="button" onclick="guardarEdicion()"> Guardar</button>
+                </form>
+            </div>
+
+            <!-- Modal que nos solicita verificar un posible borrado (ya que en CRUD no hay "CTRL + Z" o forma rápida de regresar lo eliminado) -->
+            <div id="modalEliminar" style="display:none";>
+                <h3>Confirmar Eliminacion</h3>
+                    ID: <span id="id"></span><br>
+                <p>¿Estas seguro de que quieres eliminar este dispositivo?</p>
+                <form id="mostrarEliminarDispositivo">
+                    <button type="button" onclick="eliminarDispositivo()">Eliminar</button>
+                </form>
+            </div>
 
         <!-- Modal que agrega a un nuevo miembro / dispositivo al sistema en forma oficial redirigiendo la acción "POST". -->
         <div id="modalAgregarDispositivo" style="display:none";>
@@ -113,6 +142,50 @@
                 <button type="submit" name="accion" value="agregar">Añadir</button>
             </form>
         </div>
+
+        </section>
+
+        <footer>
+            <div class="foot_col_izq" izquierda>
+                <img id="foot_col_izq_img" src="../assets/imagenes/logo_nav.png" alt="Logo nav">
+                <p>
+                    Tu salud conectada con <br>
+                    monitoreo inteligente
+                </p>
+
+                <div class="foot_col_izq_iconos">
+                    <a href="www.instagram.com"><img src="../assets/imagenes/ig-icon.png" alt="instagram" width="20px"></a>
+                    <a href="www.facebook.com"><img src="../assets/imagenes/fb-icon.png" alt="facebook" width="20px"></a>
+                    <a href="www.linkedin.com"><img src="../assets/imagenes/Linkedin.png" alt="LinkedIn" width="20px"></a>
+                    <a href="www.x.com"><img src="../assets/imagenes/x.png" alt="x" width="20px"></a>
+
+                </div>
+            </div>
+
+            <div class="foot_col_centro_der">
+                <h1 id="foot_col_centro_der_h1">Legal</h1>
+                <ul>
+                    <li><a href="#" class="foot_col_centro_der_enlaces">Términos y condiciones</a></li>
+                    <li><a href="#" class="foot_col_centro_der_enlaces">Política de privacidad</a></li>
+                    <li><a href="#" class="foot_col_centro_der_enlaces">Aviso legal</a></li>
+                </ul>
+            </div>
+            <div class="foot_col_der" derecha>
+                <h1 id="foot_col_der_h1">Contacto</h1>
+                <ul>
+                    <li>
+                        <p class="foot_col_der_contacto">Email: vitalconnection@vital.com</p>
+                    </li>
+                    <li>
+                        <p class="foot_col_der_contacto">telefono: +52 618 234 2619</p>
+                    </li>
+                    <li>
+                        <p class="foot_col_der_contacto">Direccion: UNIPOLI Durango, dgo</p>
+                    </li>
+                </ul>
+            </div>
+
+        </footer>
 
         <!-- LOGICA ASINCRONA DE COMUNICACION JAVASCRIPT-AJAX-PHP -->
         <script>

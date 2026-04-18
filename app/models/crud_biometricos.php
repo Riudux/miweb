@@ -1,16 +1,17 @@
 <?php
-    // =========================================================================
-    // ARCHIVO: crud_biometricos.php
-    // PROPÓSITO: Esta es la interfaz o "Página de Administración" (CRUD) para que  
-    // un Administrador pueda visualizar, crear, modificar o borrar Registros Biométricos. 
-    // CRUD significa Create, Read, Update, Delete (Crear, Leer, Actualizar, Borrar).
-    // =========================================================================
-
-    // Inicializamos la sesión de PHP. Es vital para saber quién está navegando.
     session_start();
-    
-    // Incluir la conexión a la base de datos para poder realizar peticiones (como extraer los registros)
-    include("../config/conexion.php");
+    if (isset($_SESSION['email']) && isset($_SESSION['username'])) {
+
+    $username = $_SESSION['username'];
+    $email = $_SESSION['email'];
+    $elide = $_SESSION['id_usuario'];
+    $lacontra = $_SESSION['password'];
+    $idrol = $_SESSION['id_rol'];
+
+    } else {
+        header("Location: ../views/login.html");
+        exit();
+    }
 ?>
 
 <!DOCTYPE html>
@@ -24,7 +25,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Crud Biometricos</title>
         
-        <link rel="stylesheet" href="../assets/styles/crud_biometricos.css">
+        <link rel="stylesheet" href="../assets/styles/cruds.css">
         <link rel="stylesheet" href="../assets/styles/navbar.css">
         <link rel="stylesheet" href="../assets/styles/body.css">
         
@@ -48,7 +49,7 @@
 
         <!-- BARRA NAVEGACIÓN PERFIL -->
         <nav class="navbar">
-            <a href="dashboard.php"><img class="logo" src="../assets/imagenes/logo_nav.png" alt="Vital Connection Logo"></a>
+            <a href="../views/dashboard.php"><img class="logo" src="../assets/imagenes/logo_nav.png" alt="Vital Connection Logo"></a>
             <input type="checkbox" id="menu-toggle">
 
             <label for="menu-toggle" class="hamburguesa">
@@ -58,124 +59,126 @@
             </label>
 
             <div class="botones">
-                <a href="dashboard.php" class="botones_nav"><span class="glyphicon glyphicon-home"></span> Panel</a>
-                <a href="perfil.php" class="botones_nav active-nav"><span class="glyphicon glyphicon-user"></span> Mi Perfil</a>
+                <a href="../views/dashboard.php" class="botones_nav"><span class="glyphicon glyphicon-home"></span> Panel</a>
+                <a href="../views/perfil.php" class="botones_nav active-nav"><span class="glyphicon glyphicon-user"></span> Mi Perfil</a>
                 
                 <!-- Botón de desincorporación -->
                 <a href="../controllers/usuarios/logout.php" class="boton_register btn-logout"><span class="glyphicon glyphicon-log-out"></span> Cerrar Sesión</a>
             </div>
         </nav>
-        <!-- Título principal centrado ("text-center" es una clase que nos regala Bootstrap 3 para centrar fácilmente texto) -->
-        <h1 class="text-center">Crud es el acronimo para create, read, update, delete</h1>
         
-        <!-- Botón principal de la página que dice "Agregar Registro Biométrico". 
-             Al darle click ("onclick") ejecuta la función JavaScript "mostrarAgregarBiometricos". 
-             Le mandamos como parámetro el nombre del cuadro flotante (modal) 'modalAgregarBiometricos' para que sepa qué debe mostrar. -->
-        <button onclick="mostrarAgregarBiometricos('modalAgregarBiometricos')">Agregar Registro Biometrico</button>
+        <section>
+            <h1 class="text-center">Crud Biometricos</h1>
         
+            <!-- Botón principal de la página que dice "Agregar Registro Biométrico". 
+                Al darle click ("onclick") ejecuta la función JavaScript "mostrarAgregarBiometricos". 
+                Le mandamos como parámetro el nombre del cuadro flotante (modal) 'modalAgregarBiometricos' para que sepa qué debe mostrar. -->
+            <button id="btnAgregarBiometrico" onclick="mostrarAgregarBiometricos('modalAgregarBiometricos')">Agregar Registro Biometrico</button>
+            
+            
+            <!-- ESTA ES LA TABLA PRINCIPAL. ID "biometricosTable".
+                Aquí es donde insertaremos de forma mágica y asíncrona todos los datos traídos desde PHP. -->
+            <table id="biometricosTable" class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <!-- Cabeceras de la tabla: Estas columnas describen sobre qué información trata la tabla. -->
+                        <th>ID RB</th>
+                        <th>ID Usuario</th>
+                        <th>ID Dispositivo</th>
+                        <th>Ritmo Cardiaco</th>
+                        <th>Oxigeno</th>
+                        <th>Temperatura</th>
+                        <th>Presion Sistolica</th>
+                        <th>Presion Diastolica</th>
+                        <th>Fecha Registro</th>
+                    </tr>
+                </thead>
+                <!-- El cuerpo ("tbody") está VACÍO. La razón es que el contenido (los datos) 
+                    no se imprime directamente aquí por PHP al cargar, sino que usamos JavaScript (Ajax) 
+                    que consulta otra url e inserta los resultados justo aquí automáticamente. -->
+                <tbody>
+                    
+                </tbody>
+            </table>
+
+            <!-- ========================================================================= -->
+            <!-- SECCIÓN DE VENTANAS MODALES (VENTANAS INVISIBLES / FLOTANTES)               -->
+            <!-- Estos "<div>" por defecto tienen un estilo "display:none", es decir, 
+                no existen visualmente en la pantalla hasta que un script (al presionar un botón) los vuelve visibles cambiándolos a "display:block".-->
+            <!-- ========================================================================= -->
+
+            <!-- MODAL 1: EDITAR REGISTRO -->
+            <div id="modalEditar" style="display:none";>
+                <h3>Editar Registro Biometrico</h3>
+                <form id="mostrarEditarBiometricos">
+                    <!-- Usamos 'span' con identificadores (IDs) únicos para ubicar dinámicamente sus valores después usando código JavaScript. -->
+                    ID Registro Biometrico : <span id="editID"></span><br>
+                    <!-- Usamos cajas de texto (<input>) y les damos una identificador estricto para recuperar lo que el usuario ponga en ellas -->
+                    ID Usuario : <input type="text" id="editIdUsuario"><br>
+                    ID Dispositivo : <input type="text" id="editIdDispositivo"><br>
+                    Ritmo Cardiaco : <input type="text" id="editRitmoCardiaco"><br>
+                    Oxigeno : <input type="text" id="editOxigeno"><br>
+                    Temperatura : <input type="text" id="editTemperatura"><br>
+                    Presion Sistolica : <input type="text" id="editPresionSistolica"><br>
+                    Presion Diastolica : <input type="text" id="editPresionDiastolica"><br>
+                    Fecha Registro : <span type="text" id="editFechaRegistro"></span><br>      
+
+                    <!-- Botón manual ("type=button"): Note que no es un "submit", sino un simple botón 
+                        que activa la función JavaScript 'guardarEdicion()' para hacer magia (AJAX). -->
+                    <button type="button" onclick="guardarEdicion()"> Guardar</button>
+                </form>
+            </div>
+
+            <!-- MODAL 2: CONFIRMAR ELIMINACIÓN -->
+            <div id="modalEliminar" style="display:none";>
+                <h3>Confirmar Eliminacion</h3>
+                    <!-- Aquí colocaremos el ID de lo que borramos, se verá como "ID: 41" -->
+                    ID: <span id="id"></span><br>
+                <p>¿Estas seguro de que quieres eliminar estos Registros Biometricos?</p>
+                <form id="mostrarEliminarBiometricos">
+                    <!-- Cuando le den click, se lanza la función eliminarBiometricos() -->
+                    <button type="button" onclick="eliminarBiometricos()">Eliminar</button>
+                </form>
+            </div>
+
+            <!-- MODAL 3: AGREGAR REGISTRO NUEVO -->
+            <div id="modalAgregarBiometricos" style="display:none";>
+                <h3>Agregar Registro Biometrico</h3>
+                <!-- Este formulario SI es tradicional. Al enviarlo ("type='submit'"), redirige e 
+                    invía la data (post) a "../controllers/registros_biometricos/register_biometricos.php", donde la base de datos lo almacenará de verdad. -->
+                <form action="../controllers/registros_biometricos/register_biometricos.php" id="nuevoDispositivo" method="post">
+                    <label for="idUsuario">ID Usuario:</label>
+                    <!-- Atributo 'name' define el título con el que la data le llegará a PHP via "$_POST['id_usuario']" -->
+                    <!-- Atributo 'required' significa que no se puede enviar vacío. -->
+                    <input type="text" id="idUsuario" name="id_usuario" required> <br><br>
+
+                    <label for="idDispositivo">ID Dispositivo:</label>
+                    <input type="text" id="idDispositivo" name="id_dispositivo" required> <br><br>
+
+                    <label for="ritmoCardiaco">Ritmo Cardiaco:</label>
+                    <input type="text" id="ritmoCardiaco" name="ritmo_cardiaco" required> <br><br>
+
+                    <label for="oxigeno">Oxigeno:</label>
+                    <input type="text" id="oxigeno" name="oxigeno" required> <br><br>
+
+                    <label for="temperatura">Temperatura:</label>
+                    <input type="text" id="temperatura" name="temperatura" required> <br><br>
+
+                    <label for="presionSistolica">Presion Sistolica:</label>
+                    <input type="text" id="presionSistolica" name="presion_sistolica" required> <br><br>
+
+                    <label for="presionDiastolica">Presion Diastolica:</label>
+                    <input type="text" id="presionDiastolica" name="presion_diastolica" required> <br><br>
+
+                    <!-- El valor "accion"="agregar" es atrapado por PHP para saber qué botón apretaste -->
+                    <button type="submit" name="accion" value="agregar">Añadir</button>
+                </form>
+            </div>
+
+        </section>
         
-        <!-- ESTA ES LA TABLA PRINCIPAL. ID "biometricosTable".
-             Aquí es donde insertaremos de forma mágica y asíncrona todos los datos traídos desde PHP. -->
-        <table id="biometricosTable" border="1">
-            <thead>
-                <tr>
-                    <!-- Cabeceras de la tabla: Estas columnas describen sobre qué información trata la tabla. -->
-                    <th>ID RB</th>
-                    <th>ID Usuario</th>
-                    <th>ID Dispositivo</th>
-                    <th>Ritmo Cardiaco</th>
-                    <th>Oxigeno</th>
-                    <th>Temperatura</th>
-                    <th>Presion Sistolica</th>
-                    <th>Presion Diastolica</th>
-                    <th>Fecha Registro</th>
-                </tr>
-            </thead>
-            <!-- El cuerpo ("tbody") está VACÍO. La razón es que el contenido (los datos) 
-                 no se imprime directamente aquí por PHP al cargar, sino que usamos JavaScript (Ajax) 
-                 que consulta otra url e inserta los resultados justo aquí automáticamente. -->
-            <tbody>
-                
-            </tbody>
-        </table>
 
-        <!-- ========================================================================= -->
-        <!-- SECCIÓN DE VENTANAS MODALES (VENTANAS INVISIBLES / FLOTANTES)               -->
-        <!-- Estos "<div>" por defecto tienen un estilo "display:none", es decir, 
-             no existen visualmente en la pantalla hasta que un script (al presionar un botón) los vuelve visibles cambiándolos a "display:block".-->
-        <!-- ========================================================================= -->
 
-        <!-- MODAL 1: EDITAR REGISTRO -->
-        <div id="modalEditar" style="display:none";>
-            <h3>Editar Registro Biometrico</h3>
-            <form id="mostrarEditarBiometricos">
-                <!-- Usamos 'span' con identificadores (IDs) únicos para ubicar dinámicamente sus valores después usando código JavaScript. -->
-                ID Registro Biometrico : <span id="editID"></span><br>
-                <!-- Usamos cajas de texto (<input>) y les damos una identificador estricto para recuperar lo que el usuario ponga en ellas -->
-                ID Usuario : <input type="text" id="editIdUsuario"><br>
-                ID Dispositivo : <input type="text" id="editIdDispositivo"><br>
-                Ritmo Cardiaco : <input type="text" id="editRitmoCardiaco"><br>
-                Oxigeno : <input type="text" id="editOxigeno"><br>
-                Temperatura : <input type="text" id="editTemperatura"><br>
-                Presion Sistolica : <input type="text" id="editPresionSistolica"><br>
-                Presion Diastolica : <input type="text" id="editPresionDiastolica"><br>
-                Fecha Registro : <span type="text" id="editFechaRegistro"></span><br>      
-
-                <!-- Botón manual ("type=button"): Note que no es un "submit", sino un simple botón 
-                     que activa la función JavaScript 'guardarEdicion()' para hacer magia (AJAX). -->
-                <button type="button" onclick="guardarEdicion()"> Guardar</button>
-            </form>
-        </div>
-
-        <!-- MODAL 2: CONFIRMAR ELIMINACIÓN -->
-        <div id="modalEliminar" style="display:none";>
-            <h3>Confirmar Eliminacion</h3>
-                <!-- Aquí colocaremos el ID de lo que borramos, se verá como "ID: 41" -->
-                ID: <span id="id"></span><br>
-            <p>¿Estas seguro de que quieres eliminar estos Registros Biometricos?</p>
-            <form id="mostrarEliminarBiometricos">
-                <!-- Cuando le den click, se lanza la función eliminarBiometricos() -->
-                <button type="button" onclick="eliminarBiometricos()">Eliminar</button>
-            </form>
-        </div>
-
-        <!-- MODAL 3: AGREGAR REGISTRO NUEVO -->
-        <div id="modalAgregarBiometricos" style="display:none";>
-            <h3>Agregar Registro Biometrico</h3>
-            <!-- Este formulario SI es tradicional. Al enviarlo ("type='submit'"), redirige e 
-                 invía la data (post) a "../controllers/registros_biometricos/register_biometricos.php", donde la base de datos lo almacenará de verdad. -->
-            <form action="../controllers/registros_biometricos/register_biometricos.php" id="nuevoDispositivo" method="post">
-                <label for="idUsuario">ID Usuario:</label>
-                <!-- Atributo 'name' define el título con el que la data le llegará a PHP via "$_POST['id_usuario']" -->
-                <!-- Atributo 'required' significa que no se puede enviar vacío. -->
-                <input type="text" id="idUsuario" name="id_usuario" required> <br><br>
-
-                <label for="idDispositivo">ID Dispositivo:</label>
-                <input type="text" id="idDispositivo" name="id_dispositivo" required> <br><br>
-
-                <label for="ritmoCardiaco">Ritmo Cardiaco:</label>
-                <input type="text" id="ritmoCardiaco" name="ritmo_cardiaco" required> <br><br>
-
-                <label for="oxigeno">Oxigeno:</label>
-                <input type="text" id="oxigeno" name="oxigeno" required> <br><br>
-
-                <label for="temperatura">Temperatura:</label>
-                <input type="text" id="temperatura" name="temperatura" required> <br><br>
-
-                <label for="presionSistolica">Presion Sistolica:</label>
-                <input type="text" id="presionSistolica" name="presion_sistolica" required> <br><br>
-
-                <label for="presionDiastolica">Presion Diastolica:</label>
-                <input type="text" id="presionDiastolica" name="presion_diastolica" required> <br><br>
-
-                <!-- El valor "accion"="agregar" es atrapado por PHP para saber qué botón apretaste -->
-                <button type="submit" name="accion" value="agregar">Añadir</button>
-            </form>
-        </div>
-
-        <!-- ============================================== -->
-        <!-- PIE ESTANDAR HTML                                -->
-        <!-- ============================================== -->
         <footer>
             <div class="foot_col_izq" izquierda>
                 <img id="foot_col_izq_img" src="../assets/imagenes/logo_nav.png" alt="Logo nav">

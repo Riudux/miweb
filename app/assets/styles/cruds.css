@@ -35,7 +35,7 @@ button:hover {
     background-color: #0d2a4a;
 }
 
-#biometricosTable, #usuariosTable, #dispositivosTable {
+#biometricosTable {
     width: 100%;
     margin: 0 auto;
     border-radius: 5px;
@@ -44,7 +44,7 @@ button:hover {
 }
 
 /* Estilos para los botones dentro de la tabla */
-#biometricosTable button, #usuariosTable button, #dispositivosTable button, #btnAgregarBiometrico {
+#biometricosTable button, #btnAgregarBiometrico {
     background-color: #143963;
     color: white;
     border: none;
@@ -56,7 +56,7 @@ button:hover {
     transition: background-color 0.3s;
 }
 
-#biometricosTable button:hover, #usuariosTable button:hover, #dispositivosTable button:hover, #btnAgregarBiometrico:hover {
+#biometricosTable button:hover , #btnAgregarBiometrico:hover {
     background-color: #0d2a4a;
 }
 

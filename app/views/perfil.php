@@ -1,25 +1,16 @@
 <?php
-// =========================================================================
-// ARCHIVO: perfil.php (PÁGINA DEDICADA AL USUARIO AUTENTICADO)
-// PROPÓSITO: Similar al dashboard, pero enfocado puramente a una "Tarjeta" de identidad
-// informándote cosas que el sistema guarda sobre ti. 
-// =========================================================================
 
-// Levantamos bolsas de $_SESSION para verificar
 session_start();
-
-// Verifica integridad (Evita que el intruso ponga "perfil.php" directo)
 if (isset($_SESSION['email']) && isset($_SESSION['username'])) {
-    
-    // Obtenemos todos los datos desde el empaquetado inicial (login.php)
+
     $username = $_SESSION['username'];
     $email = $_SESSION['email'];
     $elide = $_SESSION['id_usuario'];
+    $lacontra = $_SESSION['password'];
     $idrol = $_SESSION['id_rol'];
 
 } else {
-    // Te patea de vuelta hacia login en caso corrupto
-    header("Location: ../app/views/login.html");
+    header("Location: login.html");
     exit();
 }
 ?>
