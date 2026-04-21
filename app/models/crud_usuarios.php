@@ -23,16 +23,15 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Crud Usuarios</title>
 
-        <link rel="stylesheet" href="../assets/styles/crud_biometricos.css">
-        <link rel="stylesheet" href="../assets/styles/navbar.css">
-        <link rel="stylesheet" href="../assets/styles/body.css">
-        
-
         <!-- ============================================== -->
         <!-- OBTENCIÓN DE HOJAS DE ESTILOS (BOOTSTRAP 3)    -->
         <!-- ============================================== -->
         <!-- Mediante la etiqueta 'link' y apuntando a 'bootstrapcdn' usamos los estilos de Bootstrap 3 sin descargar los archivos a nuestro servidor local. -->
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+        <link rel="stylesheet" href="../assets/styles/cruds.css">
+        <link rel="stylesheet" href="../assets/styles/navbar.css">
+        <link rel="stylesheet" href="../assets/styles/body.css">
 
         <!-- Agregamos jQuery. Obligatorio cargarlo *antes* de finalizar el head, ya que Bootstrap 3 requiere de este para funcionar. -->
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -70,23 +69,25 @@
             <!-- ============================================== -->
             <!-- LA ESTRUCTURA TABULAR FRONTAL (ESQUELETO)      -->
             <!-- ============================================== -->
-            <table id="usuariosTable" class="table table-striped table-bordered">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Username</th>
-                        <th>Email</th>
-                        <th>Fecha_Registro</th>
-                        <th>ID Rol</th>
-                        <!-- Cabecera de Acciones (para contener botones Editar y Eliminar) -->
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <!-- El contenido dinámico rellenará esta etiqueta desde Javascript -->
-                <tbody>
+            <div class="table-responsive">
+                <table id="usuariosTable" class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Fecha_Registro</th>
+                            <th>ID Rol</th>
+                            <!-- Cabecera de Acciones (para contener botones Editar y Eliminar) -->
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <!-- El contenido dinámico rellenará esta etiqueta desde Javascript -->
+                    <tbody>
 
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
 
             <!-- ========================================================= -->
             <!-- RECINTOS MODALES (PANTALLAS EMERGENTES TIPO 'POP-UP')     -->

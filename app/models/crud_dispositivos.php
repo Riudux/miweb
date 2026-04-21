@@ -22,11 +22,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1"> 
         <title>Crud Dispositivos</title>
 
-        <link rel="stylesheet" href="../assets/styles/crud_biometricos.css">
-        <link rel="stylesheet" href="../assets/styles/navbar.css">
-        <link rel="stylesheet" href="../assets/styles/body.css">
-        
-
         <!-- ========================================== -->
         <!-- USO DE FRAMEWORKS PARA ESTILIZACIÓN AUTOMATIZADA -->
         <!-- Bootstrap 3: Descargamos vía web un archivo CSS inmenso "pre-hecho". 
@@ -34,6 +29,10 @@
              directamente nos crea una tabla bonita, en lugar de horas programando el CSS. -->
         <!-- ========================================== -->
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+        <link rel="stylesheet" href="../assets/styles/cruds.css">
+        <link rel="stylesheet" href="../assets/styles/navbar.css">
+        <link rel="stylesheet" href="../assets/styles/body.css">
 
         <!-- Cargamos a 'jQuery'. Es un atajo para escribir funciones en Javascript. 
              Su regla maestra es el símbolo `$` o signo de peso. Todo lo que empieza por '$' usa jQuery. -->
@@ -71,24 +70,26 @@
             
             <!-- LA ESTRUCTURA VACÍA AL USUARIO. 
                  La tabla inicialmente en lenguaje estático ("<table id='..'></table>") carece de datos reales de la DDBB -->
-            <table id="dispositivosTable" class="table table-striped table-bordered">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nombre</th>
-                        <th>Modelo</th>
-                        <th>Numero de serie</th>
-                        <th>ID Usuario</th>
-                        <th>Fecha Registro</th>
-                        <th>Estado</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <!-- Justamente este TBODY será alimentado dinamicamente con código extraído al pedirle al controlador (cargar_dispositivos.php) desde JS -->
-                <tbody>
-                    
-                </tbody>
-            </table>
+            <div class="table-responsive">
+                <table id="dispositivosTable" class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Modelo</th>
+                            <th>Numero de serie</th>
+                            <th>ID Usuario</th>
+                            <th>Fecha Registro</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <!-- Justamente este TBODY será alimentado dinamicamente con código extraído al pedirle al controlador (cargar_dispositivos.php) desde JS -->
+                    <tbody>
+                        
+                    </tbody>
+                </table>
+            </div>
 
             <!-- ===================================================== -->
             <!-- LAS PANTALLAS MODALES OCULTAS (DISPLAY:NONE) POR DEFECTO -->

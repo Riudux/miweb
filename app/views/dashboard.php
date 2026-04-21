@@ -82,40 +82,42 @@ if (isset($_SESSION['email']) && isset($_SESSION['username'])) {
 
             <!-- "col-md-4 col-sm-6" designa la proporción. Significa: En monitores grandes (MD), ocupamé 4 bloques (cabrían 3 tarjetas formadas). En celulares (SM) ocupa 6 bloques (cabrían solo 2 tarjetas). -->
             <div class="col-md-4 col-sm-6">
-                <!-- Una tarjeta de paciente simulada -->
-                <div class="dash-card">
+                <!-- Al dar clic en toda la tarjeta, te envía a la página detallada -->
+                <div class="dash-card" style="cursor: pointer;" onclick="window.location.href='ritmo_cardiaco.php'">
                     <div class="dash-icon-wrapper">
-                        <!-- Corazón proveniente de los íconos Gliphicons de Bootrap 3 -->
                         <span class="glyphicon glyphicon-heart dash-icon"></span>
                     </div>
                     <h3>Ritmo Cardiaco</h3>
-                    <p>Pulsaciones por minuto actuales y promedio diario.</p>
-                    <a href="historial_cardiaco.html" class="btn btn-custom">Ver Reporte</a>
+                    <p>Tendencia de los últimos 7 días</p>
+                    <!-- Contenedor donde ApexCharts dibujará el mini-gráfico -->
+                    <div id="mini-chart-ritmo"></div>
+                    <a href="ritmo_cardiaco.php" class="btn btn-custom">Ver Detalles</a>
                 </div>
             </div>
 
             <!-- Otra Tarjeta -->
             <div class="col-md-4 col-sm-6">
-                <div class="dash-card">
+                <div class="dash-card" style="cursor: pointer;" onclick="window.location.href='oxigeno.php'">
                     <div class="dash-icon-wrapper">
-                        <!-- Gota proveniente de BS3 -->
                         <span class="glyphicon glyphicon-tint dash-icon"></span>
                     </div>
                     <h3>Oxígeno en Sangre</h3>
-                    <p>Niveles de saturación y variaciones detectadas.</p>
-                    <a href="historial_oxigeno.html" class="btn btn-custom">Ver Niveles</a>
+                    <p>Tendencia de los últimos 7 días</p>
+                    <div id="mini-chart-oxigeno"></div>
+                    <a href="oxigeno.php" class="btn btn-custom">Ver Detalles</a>
                 </div>
             </div>
 
-            <!-- Otra Tarjeta -->
+            <!-- Otra Tarjeta (Cambiamos Sueño por Temperatura porque es lo que hay en BD) -->
             <div class="col-md-4 col-sm-6">
-                <div class="dash-card">
+                <div class="dash-card" style="cursor: pointer;" onclick="window.location.href='temperatura.php'">
                     <div class="dash-icon-wrapper">
-                        <span class="glyphicon glyphicon-eye-open dash-icon"></span>
+                        <span class="glyphicon glyphicon-fire dash-icon"></span>
                     </div>
-                    <h3>Calidad de Sueño</h3>
-                    <p>Análisis de horas de descanso profundo y ligero.</p>
-                    <a href="analisis_sueno.html" class="btn btn-custom">Ver Análisis</a>
+                    <h3>Temperatura Corporal</h3>
+                    <p>Tendencia de los últimos 7 días</p>
+                    <div id="mini-chart-temperatura"></div>
+                    <a href="temperatura.php" class="btn btn-custom">Ver Detalles</a>
                 </div>
             </div>
         </div>
@@ -201,6 +203,127 @@ if (isset($_SESSION['email']) && isset($_SESSION['username'])) {
     <!-- LIBRERIAS FINALES INYECTADAS DESDE LA NUBE -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    
+    <!-- Incluimos ApexCharts desde su CDN oficial para generar las gráficas -->
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+    <script>
+        // Cuando la página termine de cargar visualmente, ejecutamos esta lógica
+        $(document).ready(function() {
+            // Hacemos una petición AJAX para traer los datos de los últimos 7 días
+            $.ajax({
+                url: '../controllers/registros_biometricos/estadisticas_json.php?last_week=true',
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    if (data.error) {
+                        console.error("Error obteniendo datos: ", data.error);
+                        return;
+                    }
+
+                    // Preparamos unos arreglos (arrays) vacíos donde iremos metiendo 
+                    // los datos desempacados que vengan del servidor
+                    let fechas = [];
+                    let datosRitmo = [];
+                    let datosOxigeno = [];
+                    let datosTemp = [];
+
+                    // Iteramos o recorremos cada uno de los registros que nos devolvió PHP
+                    data.forEach(function(registro) {
+                        // Extraemos y guardamos la fecha para el eje horizontal (eje X)
+                        // Para que se vea bonito, solo tomamos la parte de la fecha o podemos formatearla
+                        fechas.push(registro.fecha_registro.substring(0, 10)); // Solo el YYYY-MM-DD
+                        
+                        // Parseamos o forzamos los valores numéricos de cada columna de la base de datos
+                        datosRitmo.push(parseFloat(registro.ritmo_cardiaco));
+                        datosOxigeno.push(parseFloat(registro.oxigeno));
+                        datosTemp.push(parseFloat(registro.temperatura));
+                    });
+
+                    // ==========================================
+                    // 1. CONFIGURACIÓN MINI GRÁFICA RITMO CARDIACO
+                    // ==========================================
+                    // Creamos un "objeto" con las reglas visuales para ApexCharts
+                    var opcionesRitmo = {
+                        series: [{
+                            name: 'Ritmo Cardiaco',
+                            data: datosRitmo // Le metemos nuestro array lleno de los datos de la DDBB
+                        }],
+                        chart: {
+                            type: 'area', // Tipo 'area' dibuja una línea y rellena debajo con color
+                            height: 100, // Al ser "mini", la hacemos chaparrita
+                            sparkline: {
+                                enabled: true // Sparkline significa gráfica compacta, oculta los números y ejes a los lados
+                            }
+                        },
+                        stroke: { curve: 'smooth' }, // Línea suavizada (curveada) en lugar de picos agudos
+                        colors: ['#FF4560'], // Color rojo/rosa para el corazón
+                        tooltip: { // Al poner el mouse encima
+                            fixed: { enabled: false },
+                            x: { show: false },
+                            y: { title: { formatter: function (seriesName) { return 'LPM' } } }, // Latidos Por Minuto
+                            marker: { show: false }
+                        }
+                    };
+                    // Renderizamos o "pintamos" físicamente la gráfica dentro del <div> 'mini-chart-ritmo'
+                    var chartRitmo = new ApexCharts(document.querySelector("#mini-chart-ritmo"), opcionesRitmo);
+                    chartRitmo.render();
+
+
+                    // ==========================================
+                    // 2. CONFIGURACIÓN MINI GRÁFICA OXÍGENO
+                    // ==========================================
+                    var opcionesOxigeno = {
+                        series: [{
+                            name: 'Oxígeno',
+                            data: datosOxigeno
+                        }],
+                        chart: {
+                            type: 'area',
+                            height: 100,
+                            sparkline: { enabled: true }
+                        },
+                        stroke: { curve: 'smooth' },
+                        colors: ['#00E396'], // Color verde/azul para el oxígeno
+                        tooltip: {
+                            fixed: { enabled: false },
+                            x: { show: false },
+                            y: { title: { formatter: function (seriesName) { return '%' } } },
+                            marker: { show: false }
+                        }
+                    };
+                    var chartOxigeno = new ApexCharts(document.querySelector("#mini-chart-oxigeno"), opcionesOxigeno);
+                    chartOxigeno.render();
+
+
+                    // ==========================================
+                    // 3. CONFIGURACIÓN MINI GRÁFICA TEMPERATURA
+                    // ==========================================
+                    var opcionesTemp = {
+                        series: [{
+                            name: 'Temperatura',
+                            data: datosTemp
+                        }],
+                        chart: {
+                            type: 'area',
+                            height: 100,
+                            sparkline: { enabled: true }
+                        },
+                        stroke: { curve: 'smooth' },
+                        colors: ['#FEB019'], // Color cálido amarillo/naranja
+                        tooltip: {
+                            fixed: { enabled: false },
+                            x: { show: false },
+                            y: { title: { formatter: function (seriesName) { return '°C' } } },
+                            marker: { show: false }
+                        }
+                    };
+                    var chartTemp = new ApexCharts(document.querySelector("#mini-chart-temperatura"), opcionesTemp);
+                    chartTemp.render();
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>

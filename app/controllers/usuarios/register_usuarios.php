@@ -14,10 +14,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Recuperamos los registros escritos en las líneas
     $username = $_POST["username"];
     $email = $_POST["email"];
-    $password = $_POST["password"];
+    
+    // Encriptamos la contraseña con password_hash
+    $password_plana = $_POST["password"];
+    $password_encriptada = password_hash($password_plana, PASSWORD_DEFAULT);
 
-    // Comando Base para crear un paciente nuevo. Nótese que el Rol se pone automáticamente a 2 (Normal) si en BD está así predefinido o en caso contrario se auto asume default por la DDBB .
-    $sqlinsert = "INSERT INTO usuarios (username, email, password) VALUES ('$username', '$email', '$password')";
+    // Comando Base para crear un paciente nuevo.
+    $sqlinsert = "INSERT INTO usuarios (username, email, password) VALUES ('$username', '$email', '$password_encriptada')";
 
     $result = $conn->query($sqlinsert);
     // Ya creado fisicamente, lo rebotamos (header Location)  inmediatamente de regreso a "crud_usuarios.php".

@@ -13,32 +13,38 @@ $gmail = $_POST['email'];
 $password = $_POST['password'];
 
 // 2. Sentencia lógica crucial. En lenguaje llano: 
-// "Buscame en toda la tabla UNA fila donde la columna 'email' sea idéntica al usuario y  
-// 'password' idéntica a la insertada". Si no son idénticas ambas, regresa 0 coincidencias.
-$sql = "SELECT * FROM usuarios WHERE email = '$gmail' AND password = '$password'";
+// "Buscame en toda la tabla UNA fila donde la columna 'email' sea idéntica al usuario".
+$sql = "SELECT * FROM usuarios WHERE email = '$gmail'";
 
 // Ejecuta búsqueda
 $result = $conn->query($sql);
 
-// Si 'num_rows' dio 1 o mayor, significa que sí existía. Hubo match perfecto.
+// Si 'num_rows' dio 1 o mayor, significa que sí existe el correo en la base de datos.
 if ($result->num_rows > 0) {
     // 3. Inicio de sesión oficial. Extraemos esa fila perfecta como arreglo.
     $row = $result->fetch_assoc();
     
-    // Y empezamos a inyectar las variables supremas "$_SESSION".
-    // Estas son "Superglobables", y vivirán volando sobre todas las páginas que visites 
-    // hasta que se use la instrucción 'destroy' o cierres el navegador navegador web.
-    $_SESSION['id_usuario'] = $row['id_usuario'];
-    $_SESSION['username'] = $row['username'];
-    $_SESSION['email'] = $gmail;            // Usamos la caja directamente asumiendo que es idéntica
-    $_SESSION['password'] = $row['password'];
-    $_SESSION['id_rol'] = $row['id_rol'];    // Esta es vital: Si vale 1, eres admin, si 2 eres Paciente.
+    // Aquí es donde entra la magia de seguridad: password_verify desencripta internamente 
+    // y compara si lo que escribiste concuerda con lo guardado
+    if (password_verify($password, $row['password'])) {
+        
+        // Y empezamos a inyectar las variables supremas "$_SESSION".
+        $_SESSION['id_usuario'] = $row['id_usuario'];
+        $_SESSION['username'] = $row['username'];
+        $_SESSION['email'] = $gmail;            // Usamos la caja directamente asumiendo que es idéntica
+        $_SESSION['password'] = $row['password'];
+        $_SESSION['id_rol'] = $row['id_rol'];    // Esta es vital: Si vale 1, eres admin, si 2 eres Paciente.
 
-    // "header(Location)" empuja inmediatamente la página hacia el Menú del paciente.
-    header('Location: ../../views/dashboard.php');
+        // "header(Location)" empuja inmediatamente la página hacia el Menú del paciente.
+        header('Location: ../../views/dashboard.php');
+        exit(); // Terminamos la ejecución para que se complete el redireccionamiento
+    } else {
+        // La contraseña es incorrecta
+        echo "Contraseña incorrecta. <a href='../../views/login.html'> Intentar De nuevo</a>";
+    }
 } else {
-    // Si metiste contraseñas o datos equivocados o inventados:
-    echo "inicio de sesion fallida. <a href='../../views/login.html'> Intentar De nuevo</a>";
+    // El correo no existía
+    echo "El correo no existe. <a href='../../views/login.html'> Intentar De nuevo</a>";
 }
 // Fin.
 $conn->close();

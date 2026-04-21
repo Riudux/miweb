@@ -12,17 +12,29 @@
     margin: 0;
     padding: 0;
 }
+
 /* ==================================================
    ESTILOS GENERALES DEL BODY
    ================================================== */
+html,
+body {
+    min-width: 100%;
+    overflow-x: hidden;
+}
 
 body {
-    font-family: 'Inter', sans-serif; /* Tipografía principal */
-    background-image: linear-gradient(135deg, #e6fff8, #c7e9f5); /* Fondo degradado */
-    min-height: 100vh; /* Altura mínima igual a la pantalla */
-    display: flex; /* Flexbox para organizar layout vertical */
-    flex-direction: column; /* Navbar arriba, contenido centro, footer abajo */
+    font-family: 'Inter', sans-serif;
+    /* Tipografía principal */
+    background-image: linear-gradient(135deg, #e6fff8, #c7e9f5);
+    /* Fondo degradado */
+    min-height: 100vh;
+    /* Altura mínima igual a la pantalla */
+    display: flex;
+    /* Flexbox para organizar layout vertical */
+    flex-direction: column;
+    /* Navbar arriba, contenido centro, footer abajo */
 }
+
 /* =========================
    FOOTER
    ========================= */
@@ -83,10 +95,6 @@ footer a:hover {
         align-items: center;
         text-align: center;
     }
-    footer * {
-        font-size: 0.8em;
-    }
-
 
     .foot_col_izq,
     .foot_col_centro_izq,
@@ -101,5 +109,3 @@ footer a:hover {
         height: 60px;
     }
 }
-
-

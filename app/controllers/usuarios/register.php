@@ -13,12 +13,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Recepción desde views/register.html form publico. 
     $username = $_POST["username"];
     $email = $_POST["email"];
-    // *Importante recordar: Las contraseñas en PHP puro en MySQL deberían cifrarse ('password_hash')
-    // por buenas prácticas, pero aquí se mandan limpias.
-    $password = $_POST["password"];
+    
+    // Encriptamos la contraseña con password_hash
+    $password_plana = $_POST["password"];
+    $password_encriptada = password_hash($password_plana, PASSWORD_DEFAULT);
 
     // Inscripción oficial del novato usuario a la Base.
-    $sqlinsert = "INSERT INTO usuarios (username, email, password) VALUES ('$username', '$email', '$password')";
+    $sqlinsert = "INSERT INTO usuarios (username, email, password) VALUES ('$username', '$email', '$password_encriptada')";
 
     $result = $conn->query($sqlinsert);
     

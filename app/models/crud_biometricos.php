@@ -25,10 +25,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Crud Biometricos</title>
         
-        <link rel="stylesheet" href="../assets/styles/cruds.css">
-        <link rel="stylesheet" href="../assets/styles/navbar.css">
-        <link rel="stylesheet" href="../assets/styles/body.css">
-        
         <!-- ========================================== -->
         <!-- IMPORTACIÓN DE ESTILOS (BOOTSTRAP 3)       -->
         <!-- ========================================== -->
@@ -36,6 +32,10 @@
              diseño, tipos de letra alineados y componentes (como las tablas y los botones modales) 
              totalmente funcionales sin tener que escribir todo el CSS nosotros mismos. -->
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+        <link rel="stylesheet" href="../assets/styles/cruds.css">
+        <link rel="stylesheet" href="../assets/styles/navbar.css">
+        <link rel="stylesheet" href="../assets/styles/body.css">
 
         <!-- ========================================== -->
         <!-- IMPORTACIÓN DE LIBRERIAS JAVASCRIPT        -->
@@ -78,28 +78,30 @@
             
             <!-- ESTA ES LA TABLA PRINCIPAL. ID "biometricosTable".
                 Aquí es donde insertaremos de forma mágica y asíncrona todos los datos traídos desde PHP. -->
-            <table id="biometricosTable" class="table table-striped table-bordered">
-                <thead>
-                    <tr>
-                        <!-- Cabeceras de la tabla: Estas columnas describen sobre qué información trata la tabla. -->
-                        <th>ID RB</th>
-                        <th>ID Usuario</th>
-                        <th>ID Dispositivo</th>
-                        <th>Ritmo Cardiaco</th>
-                        <th>Oxigeno</th>
-                        <th>Temperatura</th>
-                        <th>Presion Sistolica</th>
-                        <th>Presion Diastolica</th>
-                        <th>Fecha Registro</th>
-                    </tr>
-                </thead>
-                <!-- El cuerpo ("tbody") está VACÍO. La razón es que el contenido (los datos) 
-                    no se imprime directamente aquí por PHP al cargar, sino que usamos JavaScript (Ajax) 
-                    que consulta otra url e inserta los resultados justo aquí automáticamente. -->
-                <tbody>
-                    
-                </tbody>
-            </table>
+            <div class="table-responsive">
+                <table id="biometricosTable" class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <!-- Cabeceras de la tabla: Estas columnas describen sobre qué información trata la tabla. -->
+                            <th>ID RB</th>
+                            <th>ID Usuario</th>
+                            <th>ID Dispositivo</th>
+                            <th>Ritmo Cardiaco</th>
+                            <th>Oxigeno</th>
+                            <th>Temperatura</th>
+                            <th>Presion Sistolica</th>
+                            <th>Presion Diastolica</th>
+                            <th>Fecha Registro</th>
+                        </tr>
+                    </thead>
+                    <!-- El cuerpo ("tbody") está VACÍO. La razón es que el contenido (los datos) 
+                        no se imprime directamente aquí por PHP al cargar, sino que usamos JavaScript (Ajax) 
+                        que consulta otra url e inserta los resultados justo aquí automáticamente. -->
+                    <tbody>
+                        
+                    </tbody>
+                </table>
+            </div>
 
             <!-- ========================================================================= -->
             <!-- SECCIÓN DE VENTANAS MODALES (VENTANAS INVISIBLES / FLOTANTES)               -->
