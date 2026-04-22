@@ -1,7 +1,6 @@
 <?php
 // =========================================================================
-// ARCHIVO: register_biometricos.php (CONTROLADOR CREATE)
-// PROPÓSITO: Actúa de receptor directo de un formulario HTML normal '<form>' 
+// Actúa de receptor directo de un formulario HTML normal '<form>' 
 // que requiere enviar variables (A través de 'POST') para ingresar nuevos 
 // exámenes (pulsaciones, temperatura, etc). A base de datos ('INSERT').
 // =========================================================================

@@ -1,7 +1,6 @@
 <?php
     // =========================================================================
-    // ARCHIVO: cargar_eliminar_dispositivos.php (CONTROLADOR DELETE)
-    // PROPÓSITO: Recibe una solicitud con método seguro POST para realizar 
+// Recibe una solicitud con método seguro POST para realizar 
     // una erradicación (DELETE) contundente de un Dispositivo usando solamente su ID.
     // =========================================================================
 

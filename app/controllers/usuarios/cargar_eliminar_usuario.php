@@ -1,7 +1,6 @@
 <?php
     // =========================================================================
-    // ARCHIVO: cargar_eliminar_usuario.php (CONTROLADOR DELETE)
-    // PROPÓSITO: Recepcionar el ID del usuario al que se le dio "Eliminar" e 
+// Recepcionar el ID del usuario al que se le dio "Eliminar" e 
     // infundir la inyección destructiva SQL para darlo de baja permanente.
     // =========================================================================
     session_start();

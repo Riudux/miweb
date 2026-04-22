@@ -1,7 +1,6 @@
 <?php
 // =========================================================================
-// ARCHIVO: register_usuarios.php 
-// PROPÓSITO: Archivo de alta de Usuario dedicado específicamente para 
+// Archivo de alta de Usuario dedicado específicamente para 
 // cuando un ADMINISTRADOR agrega a alguien vía visual en "crud_usuarios.php" .
 // =========================================================================
 

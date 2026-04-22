@@ -1,7 +1,6 @@
 <?php
     // =========================================================================
-    // ARCHIVO: conexion.php
-    // PROPÓSITO: Este archivo se encarga de establecer la conexión entre nuestra 
+// Este archivo se encarga de establecer la conexión entre nuestra 
     // aplicación en PHP y el motor de base de datos MySQL. 
     // Es uno de los archivos más importantes porque se incluye en los demás archivos 
     // del sistema cada vez que se requiere hacer algo en la base de datos.

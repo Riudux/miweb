@@ -1,7 +1,6 @@
 <?php
     // =========================================================================
-    // ARCHIVO: cargar_editar_usuario.php (CONTROLADOR UPDATE)
-    // PROPÓSITO: Actuar por detrás de escena para tomar los datos corregidos de 
+// Actuar por detrás de escena para tomar los datos corregidos de 
     // la tabla de usuarios gráficos, interceptarlos vía 'POST' y actualizar MySQL.
     // =========================================================================
     session_start();

@@ -1,7 +1,6 @@
 <?php
     // =========================================================================
-    // ARCHIVO: cargar_usuarios.php (CONTROLADOR READ)
-    // PROPÓSITO: Imprimir masivamente "Echos" de HTML repletos con la lista completa 
+// Imprimir masivamente "Echos" de HTML repletos con la lista completa 
     // de usuarios registrados en MySQL. Es llamado repetidamente por la técnica "AJAX".
     // =========================================================================
 

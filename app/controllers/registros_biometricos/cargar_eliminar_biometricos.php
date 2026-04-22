@@ -1,7 +1,6 @@
 <?php
     // =========================================================================
-    // ARCHIVO: cargar_eliminar_biometricos.php (CONTROLADOR DELETE)
-    // PROPÓSITO: Quitar para siempre un historial de signos basándose en su ID.
+// Quitar para siempre un historial de signos basándose en su ID.
     // =========================================================================
 
     session_start();

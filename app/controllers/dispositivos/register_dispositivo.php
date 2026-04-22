@@ -1,7 +1,6 @@
 <?php
     // =========================================================================
-    // ARCHIVO: register_dispositivo.php (CONTROLADOR CREATE)
-    // PROPÓSITO: Recibe formularios normales (No AJAX) provenientes del Modal "Añadir".
+// Recibe formularios normales (No AJAX) provenientes del Modal "Añadir".
     // Toma variables POST (como 'nombre', 'modelo', etc.), y ejecuta un comando 
     // "INSERT" para guardar a fuego la información de nuevo registro en la Base de Datos.
     // =========================================================================

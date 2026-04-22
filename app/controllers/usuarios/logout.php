@@ -1,7 +1,6 @@
 <?php
     // =========================================================================
-    // ARCHIVO: logout.php (CIERRE DE SESIÓN)
-    // PROPÓSITO: Cuando en la barra de navegación cliqueas "Cerrar Sesión", 
+// Cuando en la barra de navegación cliqueas "Cerrar Sesión", 
     // entras un microsegundo a este puente, se evaporan tus variables Mágicas
     // y te devuelven sin pase de acceso al inicio.
     // =========================================================================

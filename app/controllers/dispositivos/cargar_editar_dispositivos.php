@@ -1,7 +1,6 @@
 <?php
     // =========================================================================
-    // ARCHIVO: cargar_editar_dispositivos.php (CONTROLADOR UPDATE)
-    // PROPÓSITO: Actuar puramente sin interfaz gráfica. Recibe por el interior (POST) 
+// Actuar puramente sin interfaz gráfica. Recibe por el interior (POST) 
     // la petición de "editar un dispositivo", saca los datos ingresados desde las 
     // variables inyectadas de Ajax, y ejecuta el SQL gigante de actualización.
     // =========================================================================

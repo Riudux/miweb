@@ -1,7 +1,6 @@
 <?php
 // =========================================================================
-// ARCHIVO: estadisticas_json.php
-// PROPÓSITO: Sirve como una "API" interna que devuelve los datos biométricos
+// Sirve como una "API" interna que devuelve los datos biométricos
 // del usuario logueado en formato JSON. Estos datos serán consumidos por 
 // el código JavaScript de ApexCharts para dibujar las gráficas.
 // =========================================================================

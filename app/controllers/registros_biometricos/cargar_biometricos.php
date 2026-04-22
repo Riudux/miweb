@@ -1,7 +1,6 @@
 <?php
     // =========================================================================
-    // ARCHIVO: cargar_biometricos.php (CONTROLADOR READ)
-    // PROPÓSITO: Se conecta a la base de datos "por detrás", selecciona a TODOS
+// Se conecta a la base de datos "por detrás", selecciona a TODOS
     // los registros biométricos, elabora código HTML con ellos (en forma de filas de tabla <tr>),
     // y devuelve todo este texto por AJAX para construir la tabla dinámica visual.
     // =========================================================================

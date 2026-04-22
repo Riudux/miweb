@@ -1,7 +1,6 @@
 <?php
     // =========================================================================
-    // ARCHIVO: cargar_dispositivos.php (CONTROLADOR)
-    // PROPÓSITO: Se conecta a la base de datos "por detrás", selecciona a TODOS
+// Se conecta a la base de datos "por detrás", selecciona a TODOS
     // los dispositivos, elabora código HTML con ellos (en forma de filas de tabla <tr>),
     // y lo imprime (Devolviéndolo directo a quien lo invocó asincronamente).
     // =========================================================================

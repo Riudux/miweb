@@ -1,7 +1,6 @@
 <?php
 // =========================================================================
-// ARCHIVO: dashboard.php (VISTA MATRIZ TIPO PANEL PACIENTE / ADMIN)
-// PROPÓSITO: La página frontal, protegida y segura. Es el "Lobby" adonde 
+// La página frontal, protegida y segura. Es el "Lobby" adonde 
 // entra un usuario logueado exitosamente, cargando sus credenciales desde memoria.
 // Si no hay memoria, lo bota. Mostrando opciones personalizadas.
 // =========================================================================

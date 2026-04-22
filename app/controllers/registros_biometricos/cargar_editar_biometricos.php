@@ -1,7 +1,6 @@
 <?php
     // =========================================================================
-    // ARCHIVO: cargar_editar_biometricos.php (CONTROLADOR UPDATE)
-    // PROPÓSITO: Actualiza los indicadores como Ritmo Cardiaco, o presiones en MySQL.
+// Actualiza los indicadores como Ritmo Cardiaco, o presiones en MySQL.
     // Recibe variables por POST enviados a través del Ajax de jQuery. 
     // =========================================================================
 

@@ -1,8 +1,7 @@
 <?php
 // =========================================================================
-// ARCHIVO: login.php (LOGIN SYSTEM)
-// PROPÓSITO: El portero del sistema de "VitalConnection". Toma las contraseñas
-// de 'login.html', va al archivo central (DDBB) y checa si el correo y la  
+// El portero del sistema de "VitalConnection". Toma las contraseñas
+// de 'login.html', va al archivo central (DB) y checa si el correo y la  
 // contraseña coinciden con las guardadas. De ser así, activa las $_SESSIONs. 
 // =========================================================================
 session_start();

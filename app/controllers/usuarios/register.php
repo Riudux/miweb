@@ -1,7 +1,6 @@
 <?php
 // =========================================================================
-// ARCHIVO: register.php (PUBLIC REGISTER SYSTEM)
-// PROPÓSITO: Este archivo es idéntico a register_usuarios.php, PEEERO está  
+// Este archivo es idéntico a register_usuarios.php, PEEERO está  
 // pensado para el formulario público de "Registrarse" o "Crear cuenta propia", 
 // aquel donde cualquier visitante civil se inscribe sin ser administrador (views/register.html).
 // =========================================================================
